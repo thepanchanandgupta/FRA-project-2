@@ -1,0 +1,9 @@
+stock,benchmark,benchmark_role,calendar_days,common_observation_days,common_coverage_pct,computable_daily_returns,max_possible_returns,return_coverage_pct
+HDFCBANK.NS,^NSEBANK,primary,2466,2465,99.96,2463,2465,99.92
+HDFCBANK.NS,^NSEI,robustness,2466,2464,99.92,2461,2465,99.84
+ICICIBANK.NS,^NSEBANK,primary,2466,2465,99.96,2463,2465,99.92
+ICICIBANK.NS,^NSEI,robustness,2466,2464,99.92,2461,2465,99.84
+BAJFINANCE.NS,NIFTY_FIN_SERVICE.NS,primary,2466,2450,99.35,2433,2465,98.7
+BAJFINANCE.NS,^NSEI,robustness,2466,2464,99.92,2461,2465,99.84
+CHOLAFIN.NS,NIFTY_FIN_SERVICE.NS,primary,2466,2450,99.35,2433,2465,98.7
+CHOLAFIN.NS,^NSEI,robustness,2466,2464,99.92,2461,2465,99.84

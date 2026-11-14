@@ -1,0 +1,22 @@
+security,ticker,date,weekday,category,note
+Shriram Finance,SHRIRAMFIN.NS,2024-01-15,Monday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Mahindra & Mahindra Financial Services,M&MFIN.NS,2025-09-08,Monday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Bank Index,^NSEBANK,2025-02-01,Saturday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2021-01-01,Friday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2021-01-22,Friday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2021-02-15,Monday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2021-02-17,Wednesday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2021-05-05,Wednesday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2021-05-11,Tuesday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2021-05-20,Thursday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2021-05-25,Tuesday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2021-05-31,Monday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2021-07-05,Monday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2022-12-26,Monday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2024-01-01,Monday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2024-02-19,Monday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2025-01-01,Wednesday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2025-02-01,Saturday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2026-01-01,Thursday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty 50 Index,^NSEI,2018-01-01,Monday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row
+Nifty 50 Index,^NSEI,2019-01-01,Tuesday,MISSING_OBSERVATION,In primary calendar (equities traded with volume) but series has no valid row

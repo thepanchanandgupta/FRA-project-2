@@ -1,0 +1,14 @@
+security,ticker,original_rows,stale_excluded,retained_in_cleaned_file,muhurat_preserved_not_in_calendar,index_rows_outside_calendar,rows_in_primary_calendar,primary_calendar_days,missing_vs_calendar,coverage_pct
+HDFC Bank,HDFCBANK.NS,2470,2,2468,2,0,2466,2466,0,100.0
+Bajaj Finance,BAJFINANCE.NS,2470,2,2468,2,0,2466,2466,0,100.0
+ICICI Bank,ICICIBANK.NS,2470,2,2468,2,0,2466,2466,0,100.0
+Cholamandalam Investment and Finance,CHOLAFIN.NS,2470,2,2468,2,0,2466,2466,0,100.0
+Axis Bank,AXISBANK.NS,2470,2,2468,2,0,2466,2466,0,100.0
+Kotak Mahindra Bank,KOTAKBANK.NS,2470,2,2468,2,0,2466,2466,0,100.0
+IndusInd Bank,INDUSINDBK.NS,2470,2,2468,2,0,2466,2466,0,100.0
+Shriram Finance,SHRIRAMFIN.NS,2470,3,2467,2,0,2465,2466,1,99.96
+Mahindra & Mahindra Financial Services,M&MFIN.NS,2470,3,2467,2,0,2465,2466,1,99.96
+L&T Finance,LTF.NS,2470,2,2468,2,0,2466,2466,0,100.0
+Nifty Bank Index,^NSEBANK,2466,0,2466,0,1,2465,2466,1,99.96
+Nifty Financial Services Index,NIFTY_FIN_SERVICE.NS,2451,0,2451,0,1,2450,2466,16,99.35
+Nifty 50 Index,^NSEI,2465,0,2465,0,1,2464,2466,2,99.92

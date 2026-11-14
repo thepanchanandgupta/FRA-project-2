@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Risk Intelligence | FRA Group Project 2</title>
+<meta name="description" content="HDFC Bank vs Bajaj Finance: credit-risk benchmarking, idiosyncratic vs systematic risk, and equity-market event study, Oct 2016 - Sep 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="vendor/chart.umd.min.js"></script>
+<script>window.Chart||document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"><\/script>')</script>
+<script src="vendor/qrcode.min.js"></script>
+<script>window.QRCode||document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script>')</script>
+</head>
+<body>
+<div class="bg-layer"></div><div class="bg-grid"></div>
+<div id="progress"></div>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-in">
+    <a class="brand" href="#hero">FRA <b>Risk Intelligence</b></a>
+    <button class="burger" id="burger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    <ul class="links" id="links">
+      <li><a href="#executive">Executive</a></li>
+      <li><a href="#hdfc">HDFC Bank</a></li>
+      <li><a href="#bajaj">Bajaj Finance</a></li>
+      <li><a href="#compare">Comparison</a></li>
+      <li><a href="#events">Risk Events</a></li>
+      <li><a href="#market">Market Reaction</a></li>
+      <li><a href="#method">Methodology</a></li>
+      <li><a href="#verdict">Verdict</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#qr">Live Link</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div>
+      <span class="badge">FRA Group Project 2</span>
+      <h1>Credit Risk <span class="grad">Intelligence</span></h1>
+      <p class="lead">When lenders' bad loans rise, is the lender responsible, or the economy &mdash; and did the market notice? A ten-year study of HDFC Bank and Bajaj Finance against their primary peers, built on daily adjusted prices and a market-model event study.</p>
+      <div class="pills">
+        <span class="pill"><span class="dot" style="background:var(--blue)"></span>HDFC Bank &middot; peer ICICI Bank</span>
+        <span class="pill"><span class="dot" style="background:var(--cyan)"></span>Bajaj Finance &middot; peer Cholamandalam</span>
+        <span class="pill">Oct 2016 &ndash; Sep 2026</span>
+      </div>
+      <a class="btn" href="#executive">Explore Dashboard &darr;</a>
+    </div>
+    <div class="glass hero-visual">
+      <canvas id="heroCanvas" aria-label="Indexed share prices, 2016 to 2026"></canvas>
+      <div class="legend" id="heroLegend"></div>
+      <p class="src">Indexed adjusted close (3 Oct 2016 = 100), log scale. Historical data from the supplied CSVs &mdash; not live.</p>
+    </div>
+  </div>
+  <div class="scroll-ind">Scroll<i></i></div>
+</section>
+
+<!-- EXECUTIVE -->
+<section id="executive">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Executive intelligence</span><h2>Which lender managed credit risk better, and why?</h2>
+      <p>The headline is built only from verified evidence. Where verified credit-risk data is still incomplete, the dashboard says so instead of filling gaps.</p></div>
+    <div class="grid g4 reveal" id="kpis"></div>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="glass chart-card reveal"><h3>Total return profile (adjusted close)</h3><div class="sub">Rebased to 100 on 3 Oct 2016</div>
+        <div class="tbl-wrap"><table id="retTable"></table></div><p class="src">Source: supplied CSVs (Yahoo Finance download), cleaned layer. Equities use Adj Close; indices use price-only Close.</p></div>
+      <div class="glass reveal" id="execAnswer"></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap" style="padding-top:0;margin-bottom:0"><p class="note warn" id="wipBanner"><b>Research in progress.</b> This is the initial release. Market data, validation and the event study are complete as described in the methodology; the credit-risk dataset (GNPA, NNPA, PCR, slippages, write-offs, credit cost) is still being collected from primary sources. Blank cells mean &ldquo;not yet verified&rdquo;, never zero, and no credit-risk ranking is made yet. Most event dates are still candidates, and event-study t-statistics use a simplified approximation pending review.</p></div>
+<!-- ENTITY SECTIONS -->
+<section id="hdfc"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Entity A &middot; category (a) large private-sector bank</span><h2>HDFC Bank vs ICICI Bank</h2><span class="tag pend">Credit data: research in progress</span>
+    <p>ICICI Bank is the primary peer: a similarly sized private-sector universal bank with a comparable retail and corporate lending mix. Other banks in the data (Axis, Kotak, IndusInd) are supporting comparables.</p></div>
+  <div id="entityHDFC"></div>
+</div></section>
+
+<section id="bajaj"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Entity B &middot; category (d) NBFC in the lending business</span><h2>Bajaj Finance vs Cholamandalam</h2><span class="tag pend">Credit data: research in progress</span>
+    <p>Cholamandalam is the primary peer: a large, established, listed lending NBFC. Its book is vehicle-led while Bajaj is consumer-led, which is disclosed as a limitation. Shriram, M&amp;M Financial and L&amp;T Finance are supporting comparables.</p></div>
+  <div id="entityBAJAJ"></div>
+</div></section>
+
+<section id="compare"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Comparative intelligence</span><h2>Both entities and their peers, side by side</h2><p>Credit-risk scorecard fills in as each metric is verified from primary sources. Market behaviour below is computed from the supplied price data.</p></div>
+  <div class="glass chart-card reveal"><h3>Market behaviour scorecard</h3><div class="sub">Computed from daily adjusted returns, 4 Oct 2016 &ndash; 30 Sep 2026</div>
+    <div class="tbl-wrap"><table id="scoreTable"></table></div>
+    <p class="note">Beta and correlation are measured against each stock's primary benchmark (Nifty Bank for banks, Nifty Financial Services for NBFCs). Volatility is annualised from daily returns using &radic;250. Max drawdown is peak-to-trough on the adjusted-close series. These describe equity risk, not credit risk.</p></div>
+  <div class="grid g2" style="margin-top:20px" id="compareCharts"></div>
+  <div class="glass chart-card reveal" style="margin-top:20px"><h3>Credit-risk data completeness</h3><div class="sub">Share of the entity-by-metric-by-year grid backed by a verified source</div><div id="completeness"></div></div>
+</div></section>
+
+<!-- EVENTS -->
+<section id="events"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Risk event explorer</span><h2>Idiosyncratic vs systematic risk events</h2>
+    <p>Systematic events hit the whole sector; idiosyncratic events hit one lender. Peer behaviour over the same window is used to tell them apart. Events marked <em>candidate</em> have dates that still need source verification and are not presented as findings.</p></div>
+  <div class="controls reveal">
+    <label class="field">Risk category<select id="fType"><option value="all">All</option><option value="sys">Systematic</option><option value="idio">Idiosyncratic</option></select></label>
+    <label class="field">Entity<select id="fEnt"><option value="all">All</option><option value="HDFC">HDFC Bank</option><option value="ICICI">ICICI Bank</option><option value="BAJAJ">Bajaj Finance</option></select></label>
+    <label class="field">Year<select id="fYear"><option value="all">All</option></select></label>
+    <label class="field">Verification<select id="fVer"><option value="all">All</option><option value="ok">Verified</option><option value="pend">Candidate</option></select></label>
+  </div>
+  <div class="ev-list" id="evList"></div>
+</div></section>
+
+<!-- MARKET -->
+<section id="market"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Equity market reaction</span><h2>Share prices and event study</h2>
+    <p>Part 1 shows indexed prices across the full window. Part 2 is a market-model event study: expected return from a regression on the benchmark, abnormal return = actual &minus; expected, CAR = sum of abnormal returns.</p></div>
+
+  <div class="glass chart-card reveal">
+    <h3>Indexed share price vs benchmarks</h3><div class="sub" id="idxSub"></div>
+    <div class="controls">
+      <label class="field">From<input type="date" id="rFrom"></label>
+      <label class="field">To<input type="date" id="rTo"></label>
+      <div class="chips" id="rPresets"></div>
+      <label class="chip" style="margin-left:auto"><input type="checkbox" id="rRebase" checked> Rebase to 100 at range start</label>
+      <label class="chip"><input type="checkbox" id="rMarks" checked> Show events</label>
+    </div>
+    <div class="chips" id="idxChips" style="margin-bottom:12px"></div>
+    <div class="chart-box tall"><canvas id="idxChart"></canvas></div>
+    <p class="src">Source: supplied CSVs. Gaps are left as gaps (no forward-fill). Dashed vertical lines are candidate or verified event reaction days.</p>
+  </div>
+
+  <div class="glass chart-card reveal" style="margin-top:20px" id="studyCard">
+    <h3>Event study explorer</h3><div class="sub">Pick an event, a stock and a benchmark. Observed values and model estimates are labelled separately.</div>
+    <div class="controls">
+      <label class="field">Event<select id="esEvent"></select></label>
+      <label class="field">Stock<select id="esStock"></select></label>
+      <label class="field">Benchmark<select id="esBench"></select></label>
+      <label class="field">Event window<select id="esWin"></select></label>
+    </div>
+    <div class="tabs" id="esTabs"><button class="tab on" data-t="ar">Abnormal returns</button><button class="tab" data-t="car">Cumulative (CAR)</button><button class="tab" data-t="obs">Observed vs benchmark</button></div>
+    <div class="stats" id="esStats"></div>
+    <div class="chart-box"><canvas id="esChart"></canvas></div>
+    <div id="esNote"></div>
+  </div>
+
+  <div class="glass chart-card reveal" style="margin-top:20px"><h3>Cross-event reaction table</h3>
+    <div class="sub">Cumulative abnormal return (%, market model) over the selected window; shading marks |t| &gt; 1.96. Events 1 has no estimation window and shows benchmark-adjusted return instead.</div>
+    <div class="controls"><label class="field">Window<select id="xtWin"></select></label><label class="field">Benchmark set<select id="xtRole"><option value="primary">Primary (Nifty Bank / Nifty Fin. Services)</option><option value="robustness">Robustness (Nifty 50)</option></select></label></div>
+    <div class="tbl-wrap"><table id="xTable"></table></div>
+    <p class="note warn">Events E08 and E09 fall on the same trading day (16 Nov 2023), so a daily event study cannot separate Bajaj's own RBI restriction from the sector-wide risk-weight change. The Bajaj restriction is treated as primary and the circular as a confounder.</p>
+  </div>
+</div></section>
+
+<!-- METHOD -->
+<section id="method"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Methodology &amp; data integrity</span><h2>How the data was cleaned, and what is and is not verified</h2></div>
+  <div class="grid g3">
+    <div class="glass reveal"><h3>Data layers</h3><p style="margin-top:8px">Raw CSVs are kept untouched (<span id="mRaw"></span> files, SHA-256 identical to the uploads). A cleaned layer flags every row. Event-study outputs are calculated separately.</p></div>
+    <div class="glass reveal"><h3>Calendar</h3><p style="margin-top:8px"><span id="mCal"></span> regular trading days from 3 Oct 2016 to 30 Sep 2026. Muhurat sessions are preserved but excluded from the primary calendar.</p></div>
+    <div class="glass reveal"><h3>Window &amp; adjustments</h3><p style="margin-top:8px">Research window fixed at 1 Oct 2016&ndash;30 Sep 2026. Stocks use dividend- and split-adjusted prices; indices are price-return, a documented mismatch.</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:20px">
+    <div class="glass reveal"><h3>Exclusion log</h3><div class="tbl-wrap" style="margin-top:12px"><table id="exTable"></table></div></div>
+    <div class="glass reveal"><h3>Coverage &amp; event windows</h3><div id="covBox" style="margin-top:12px"></div></div>
+  </div>
+  <div class="glass reveal" style="margin-top:20px"><h3>Event-study method</h3>
+    <ul style="margin:10px 0 0 18px;color:var(--muted);font-size:.92rem;display:grid;gap:6px">
+      <li>Daily return = adjusted close<sub>t</sub> / adjusted close<sub>t&minus;1</sub> &minus; 1, on consecutive regular trading days only. If either day is missing the return is blank (never filled).</li>
+      <li>Market model R<sub>i</sub> = &alpha; + &beta;R<sub>m</sub> + &epsilon; estimated on trading days [&minus;250, &minus;31] before the reaction day (at most 220 returns, at least 120 required).</li>
+      <li>Days inside &plusmn;20 trading days of any <em>other</em> event are excluded from the estimation sample (this removes the COVID crash from the HDFC Dec-2020 estimation).</li>
+      <li>AR = actual &minus; (&alpha; + &beta;R<sub>m</sub>); CAR = &Sigma;AR over the window; t = CAR / (&sigma;<sub>&epsilon;</sub>&radic;L). Windows: [&minus;1,+1], [&minus;3,+3], [&minus;5,+5], [&minus;10,+10], [&minus;20,+20].</li>
+      <li>Where a window contains a missing index day it is flagged and left incomplete; the next available day is never substituted.</li>
+      <li>Abnormal returns are associated with, not proven to be caused by, credit news: earnings, rates and other news can move the same days.</li>
+    </ul></div>
+  <div class="glass reveal" style="margin-top:20px"><h3>Source register</h3><p style="margin:6px 0 12px">Only sources that were opened and read are listed.</p><div class="tbl-wrap"><table id="srcTable"></table></div></div>
+  <div class="glass reveal" style="margin-top:20px"><h3>Known data breaks</h3><div id="breaks" style="margin-top:8px"></div></div>
+</div></section>
+
+<!-- VERDICT -->
+<section id="verdict"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Final verdict</span><h2>What the evidence supports so far</h2><span class="tag pend">Preliminary &middot; credit conclusions pending</span></div>
+  <div class="grid g2" id="verdictBox"></div>
+</div></section>
+
+<!-- TEAM -->
+<section id="team"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">The team</span><h2>Group members</h2></div>
+  <div class="team">
+    <div class="glass spot member reveal"><span class="n">01</span><div class="grow"><div class="nm">Alan John Wilson</div></div><span class="rn">P2511008</span></div>
+    <div class="glass spot member reveal"><span class="n">02</span><div class="grow"><div class="nm">Devraj Chaudhary</div></div><span class="rn">P2511026</span></div>
+    <div class="glass spot member reveal"><span class="n">03</span><div class="grow"><div class="nm">Nityam Abichandani</div></div><span class="rn">P2511046</span></div>
+    <div class="glass spot member reveal"><span class="n">04</span><div class="grow"><div class="nm">Panchanand Gupta</div></div><span class="rn">P2511048</span></div>
+    <div class="glass spot member reveal"><span class="n">05</span><div class="grow"><div class="nm">Febin Francis Kavalakatt</div></div><span class="rn">P2512026</span></div>
+  </div>
+</div></section>
+
+<!-- QR -->
+<section id="qr"><div class="wrap">
+  <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto"><span class="eyebrow">Explore the live dashboard</span><h2>EXPLORE THE LIVE DASHBOARD</h2></div>
+  <div class="glass qr-card reveal">
+    <div class="qr-box" id="qrBox"><span style="color:#333;font-size:.85rem;text-align:center">Generating QR&hellip;</span></div>
+    <div>
+      <h3 style="font-size:1.35rem">Scan to explore our Credit Risk Intelligence Dashboard</h3>
+      <div class="urlbox" id="qrUrl"></div>
+      <div class="pills" style="margin-bottom:14px"><span class="pill" id="deployState"></span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" id="visitBtn" href="#">Visit Live Dashboard</a><button class="btn ghost" id="copyBtn" type="button">Copy Website Link</button></div>
+      <p id="qrNote" class="src" style="margin-top:12px"></p>
+    </div>
+  </div>
+</div></section>
+
+<footer>FRA Group Project 2 &middot; Credit Risk Intelligence &middot; Historical research dashboard (not live market data) &middot; Oct 2016 &ndash; Sep 2026</footer>
+<button id="toTop" aria-label="Back to top">&uarr;</button>
+
+<script src="js/data/market.js"></script>
+<script src="js/data/event_study.js"></script>
+<script src="js/data/credit.js"></script>
+<script src="js/data/validation.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
