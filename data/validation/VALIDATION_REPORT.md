@@ -1,4 +1,5 @@
 # FRA Group Project 2 — Market Data Cleaning & Validation Report
+> **Note:** this report covers the earlier market-data validation stage. The current website release uses annual credit-risk data only; the price data and event-study files are retained for reference.
 
 Stage: cleaning and validation only. **No financial analysis has been performed.**
 Window: 3 Oct 2016 – 30 Sep 2026 (1 Oct 2016 was a Saturday; first trading day 3 Oct 2016). No observations after 30 Sep 2026.
