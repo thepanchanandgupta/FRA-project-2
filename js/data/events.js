@@ -83,6 +83,10 @@ window.FRA_REMOVED = [
  'The statement that the SC standstill depressed FY2020 NPAs: the standstill started Sep 2020, so it affects FY2021, not FY2020.'
 ];
 window.FRA_SRC_EXTRA = [
+ ['B1','Bajaj Finance','Q4 FY25 International Investor Presentation, p.36 (18-year snapshot: loan losses & provision to average AUF, net NPA, provisioning coverage)','https://cms-assets.bajajfinserv.in/is/content/bajajfinance/bajaj-finance-q4-fy25-international-investor-Presentationpdf?scl=1&fmt=pdf'],
+ ['C1','Cholamandalam','Corporate presentation Mar-2025, p.18 (FY11-FY25 loan losses and provisions, losses and provisions %, GNPA, NNPA)','https://files.cholamandalam.com/Chola_Investor_presentation_Mar_25_792e9c861a.pdf'],
+ ['C2','Cholamandalam','Corporate presentation Mar-2023, slide 17 (FY14-FY23 ten-year summary)','https://files.cholamandalam.com/Chola_Investor_presentation_Mar_23_470d8d67ad.pdf'],
+ ['I1','ICICI Bank','Performance review, quarter ended 31 Mar 2025 (provisions FY24 Rs 3,643 crore, FY25 Rs 4,683 crore; Q3/Q4 FY25 gross NPA additions, recoveries and write-offs)','https://www.icici.bank.in/about-us/article/performance-review-quarter-ended-march-31-2025'],
  ['P1','Price data','Team-supplied daily history (Yahoo-Finance-style CSVs), 13 securities, 3 Oct 2016-30 Sep 2026; validated by the team (see data/validation). Equities: Adj Close; indices: Close.',''],
  ['R1','RBI','Press release 15 Nov 2023, Bajaj Finance (E08)','https://rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=56745'],
  ['R2','RBI','Master circular/notification on NBFC income recognition and asset classification, 12 Nov 2021','https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12194'],
