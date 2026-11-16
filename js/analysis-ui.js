@@ -101,7 +101,7 @@ function drawEvent() {
   const rows = ['HDFC', 'ICICI', 'BAJAJ', 'CHOLA'].map(s => {
     const r = evRes(sel.ev, s), id = M.intraday[sel.ev + '|' + s], rec = M.recovery[sel.ev + '|' + s];
     const d0 = r['[0,0]'];
-    const cells = W.map(w => { const x = r[w]; if (!x) return '<td class="num"><span class="na">n/a</span></td>'; if (x.car == null) return `<td class="num">raw ${pct(x.raw)}<br><span class="na">no estimate</span></td>`; return `<td class="num">${pct(x.car)}<br><span class="src" style="margin:0">t ${num(x.t)} &middot; placebo p ${x.placebo_p == null ? 'n/a' : x.placebo_p.toFixed(2)}</span></td>`; }).join('');
+    const cells = W.map(w => { const x = r[w]; if (!x) return '<td class="num"><span class="na">n/a</span></td>'; if (x.car == null) return `<td class="num">raw ${pct(x.raw)}<br><span class="na">unavailable</span></td>`; return `<td class="num">${pct(x.car)}<br><span class="src" style="margin:0">t ${num(x.t)} &middot; placebo p ${x.placebo_p == null ? 'n/a' : x.placebo_p.toFixed(2)}</span></td>`; }).join('');
     const rtxt = !rec ? 'n/a' : rec.status === 'recovered' ? rec.days + ' sessions' : rec.status === 'no_decline_day0' ? 'no day-0 fall' : '&gt;250';
     return `<tr><td><b style="color:${COL[s]}">${NAME[s]}</b>${(ev.cls === 'idiosyncratic' && meta.lender === s) ? ' <span class="tag idio">event lender</span>' : ''}</td><td class="num">${pct(d0 && d0.raw)}</td><td class="num">${pct(id.open_gap)}</td>${cells}<td class="num">${r.beta == null ? '<span class="na">n/a</span>' : r.beta.toFixed(2) + ' (n=' + r.est_n + ')'}</td><td class="num">${rtxt}</td></tr>`;
   }).join('');
