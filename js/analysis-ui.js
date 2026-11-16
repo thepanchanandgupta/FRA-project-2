@@ -107,7 +107,7 @@ function drawEvent() {
   }).join('');
   $('#evTable').innerHTML = `<thead><tr><th>Stock</th><th class="num">Day-0 close return</th><th class="num">Day-0 open gap</th><th class="num">CAR [-1,+1]</th><th class="num">CAR [-5,+5]</th><th class="num">CAR [0,+20]</th><th class="num">Beta (est. n)</th><th class="num">Back to pre-event close</th></tr></thead><tbody>${rows}</tbody>`;
   let n = '';
-  if (sel.ev === 'E01') n = 'Price data starts 3 Oct 2016, so there are only 24 sessions before the event and no market-model estimate. Raw returns only. It also coincided with the US election result.';
+  if (sel.ev === 'E01') n = 'Price data starts 3 Oct 2016, so there are only 24 sessions before the event and no market-model result is available. Raw returns only. It also coincided with the US election result.';
   if (sel.ev === 'E08' || sel.ev === 'E09') n = 'E08 and E09 share the same reaction day (16 Nov 2023). The figures are identical and cannot separate the two announcements. Bajaj opened about 3.9% lower on 16 Nov but closed up 1.9%, so the day-0 close return understates the intraday reaction.';
   if (sel.ev === 'E04') n = 'Benchmark-adjusted CARs are close to zero for banks because the whole sector fell with the market; read the indexed lines for the actual fall.';
   $('#evNote').innerHTML = n ? `<p class="note warn" style="margin-top:10px">${esc(n)}</p>` : '';
@@ -191,7 +191,7 @@ function narrative() {
     '<b>The nine events:</b> shocks that hit everyone (COVID-19, funding stress, rate and risk-weight changes) moved every stock and hit NBFCs hardest; lender-specific regulatory or governance news produced short-lived reactions without a visible change in annual NPAs.',
     '<b>What the event study and correlations can show:</b> the size and timing of price moves and whether co-movement exists. <b>What they cannot show:</b> cause. Annual credit data gives only 5 to 9 points per lender, so even a strong correlation would not prove that credit quality moves prices.',
     '<b>Data breaks:</b> HDFC Bank FY2024 onward includes the HDFC Ltd merger (1 Jul 2023), and ratios also differ by denominator, consolidation, IGAAP/Ind AS and the COVID moratorium, so years are not always like-for-like.',
-    '<b>Reported vs calculated:</b> every plotted series is company-reported unless marked as calculated; no value is estimated, interpolated or illustrative. Credit cost is not included in the correlation analysis.'].map(li).join('')}</ul>`;
+    '<b>Reported vs calculated:</b> every plotted series is company-reported unless marked as calculated; no value is interpolated or illustrative. Credit cost is not included in the correlation analysis.'].map(li).join('')}</ul>`;
 }
 
 try { intro2(); six('sixBanks', 'HDFC', 'ICICI', 'bank'); six('sixNbfcs', 'BAJAJ', 'CHOLA', 'nbfc'); narrative(); events(); pricePanel(); fullCharts(); corrTables(); scatter(); findings2(); method(); }
