@@ -98,6 +98,10 @@
         "FY2026": 75.8
       },
       "GNPA": {
+        "FY2017": 7.89,
+        "FY2018": 8.84,
+        "FY2019": 6.7,
+        "FY2020": 5.53,
         "FY2021": 5.33,
         "FY2022": 3.76,
         "FY2023": 2.87,
@@ -5185,12 +5189,12 @@
       "asset_quality_type": "NPA + Stage 3",
       "gnpa": 4.4,
       "nnpa": 2.9,
-      "pcr": null,
+      "pcr": 35.36,
       "stage3_gross": 3,
       "stage3_net": 1.6,
-      "other": "FY26 GNPA/NNPA and Stage 3 are separately reported; PCR not populated in extracted series.",
-      "source": "Chola Annual Report FY2025-26, key ratios and NPA movement.",
-      "url": "https://www.cholamandalam.com/investors/annual-reports"
+      "other": "PCR 35.36% on RBI GNPA basis. Ind AS Stage 3 PCR is a separate measure (47.29%) and is not substituted here.",
+      "source": "Cholamandalam FY2025-26 results / financial statements; RBI asset-classification PCR.",
+      "url": "https://financialfilings.com/filings/cholamandalam-investment-and-finance-company-ltd/earnings-release/2026/42177384/"
     },
     {
       "symbol": "SHRIRAM",
