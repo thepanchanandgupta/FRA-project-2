@@ -5475,6 +5475,21 @@
       "label": "Russia–Ukraine invasion — UN General Assembly resolution / chronology",
       "url": "https://www.un.org/en/ga/77/resolutions.shtml",
       "note": "Context for the 24 February 2022 geopolitical shock; event-day market returns are calculated from user-supplied adjusted-close and index data."
+    },
+    {
+      "label": "ICICI Bank historical asset-quality series (FY2017–FY2018)",
+      "url": "https://www.icra.in/Rating/ShowRationalReportFilePdf/79066",
+      "note": "ICRA-reported standalone GNPA ratios: FY2017 7.89% and FY2018 8.84%."
+    },
+    {
+      "label": "ICICI Bank FY2019–FY2020 performance review",
+      "url": "https://www.icici.bank.in/about-us/news-room/2020/news-performance-review-quarter-ended-march-31-2020",
+      "note": "Official Q4 FY2020 review: GNPA ratio 6.70% in FY2019 and 5.53% in FY2020."
+    },
+    {
+      "label": "Cholamandalam FY2026 asset-quality and provisioning ratios",
+      "url": "https://www.cholamandalam.com/investors/annual-reports",
+      "note": "FY2026 RBI asset-classification GNPA, NNPA and PCR. PCR 35.36% is on RBI GNPA basis; Ind AS Stage 3 PCR is a distinct 47.29% measure."
     }
   ],
   "modelled_flows": {
