@@ -96,7 +96,7 @@
   function renderFlows(){
     const tbody=$('#flowTable tbody');
     tbody.innerHTML=DATA.flows.map(f=>{
-      const writes=f.writeoffs==null?'Not separately isolated':`${money(f.writeoffs)}<span class="basis">${esc(f.writeoff_label||'')}</span>`;
+      const writes=f.writeoffs==null?'Not separately isolated':money(f.writeoffs);
       const status='';
       const sym=({ 'HDFC Bank':'HDFC','ICICI Bank':'ICICI','Axis Bank':'AXIS','Kotak Mahindra Bank':'KOTAK','IndusInd Bank':'INDUSIND','Bajaj Finance':'BAJAJ','Cholamandalam':'CHOLA','Shriram Finance':'SHRIRAM','L&T Finance':'LTF','Mahindra & Mahindra Financial Services':'MMFSL'})[f.company];
       const model=DATA.modelled_flows?.[sym]||{}; const fy='FY2026';
