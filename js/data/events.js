@@ -4,7 +4,7 @@ window.FRA_EVENTS = [
  { id:'E01', name:'Demonetisation', date:'8 Nov 2016 (announced evening; first reaction 9 Nov 2016)', cls:'systematic',
    why:'A nationwide policy change affecting every lender through cash withdrawals, deposits and borrower cash flows. Coincided with the US election result on 9 Nov 2016, so the market move cannot be attributed to it alone.',
    mech:'Cash-dependent borrowers (small business, consumer and vehicle finance) faced collection disruption; banks received a surge of deposits.',
-   lenders:'All four. Vehicle and consumer NBFCs (Bajaj, Chola) show the largest price falls in the window; banks fell less. Price data starts 3 Oct 2016, so no market-model estimate is possible.',
+   lenders:'All four. Vehicle and consumer NBFCs (Bajaj, Chola) show the largest price falls in the window; banks fell less. Price data starts 3 Oct 2016, so no market-model result is possible.',
    ind:[{m:'GNPA',e:['HDFC','CHOLA'],p:['FY2017','FY2018']},{m:'NNPA',e:['ICICI','BAJAJ'],p:['FY2017','FY2018']}],
    note:'FY2017 year-end already includes the post-demonetisation months and no FY2016 values were collected, so a true "before" is unavailable.',
    src:[{t:'Business Standard, 9 Nov 2016: bank stocks drop after note ban',u:'https://www.business-standard.com/amp/article/news-cm/bank-stocks-drop-after-govt-bans-some-bank-notes-to-curb-black-money-116110900647_1.html'}] },
