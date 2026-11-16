@@ -106,10 +106,10 @@
 
   function renderEvents(){
     $('#eventTable tbody').innerHTML=DATA.events.map(e=>{
-      const h0=e.returns?.HDFC?.day0_excess, h5=e.returns?.HDFC?.window5_excess;
-      const b0=e.returns?.BAJAJ?.day0_excess, b5=e.returns?.BAJAJ?.window5_excess;
+      const h0=e.returns?.HDFC?.day0_excess;
+      const b0=e.returns?.BAJAJ?.day0_excess;
       const cv=v=>v==null?'n/a':`${v>0?'+':''}${v.toFixed(2)}%`;
-      return `<tr><td><strong>${esc(e.name)}</strong><span class="basis">${esc(e.date)}</span></td><td>${esc(e.class)}</td><td>${cv(h0)}</td><td>${cv(h5)}</td><td>${cv(b0)}</td><td>${cv(b5)}</td></tr>`;
+      return `<tr><td><strong>${esc(e.name)}</strong><span class="basis">${esc(e.date)}</span></td><td>${esc(e.class)}</td><td>${cv(h0)}</td><td>${cv(b0)}</td></tr>`;
     }).join('');
   }
 
