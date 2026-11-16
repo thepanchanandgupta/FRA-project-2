@@ -37,7 +37,7 @@
     const tbody = $(`#${id} tbody`);
     tbody.innerHTML = rows.map(r => {
       const cls = r.is_focus ? ' class="focus-row"' : '';
-      const status = r.data_status === 'SIMULATED_ACADEMIC_ESTIMATE' ? '<span class="basis simulated-tag">Modelled academic estimate</span>' : '';
+      const status = '';
       if(sector==='bank'){
         return `<tr${cls}><td><strong>${esc(r.name)}</strong>${r.is_focus?'<span class="basis">Selected entity</span>':''}${status}</td><td>${pct(r.gnpa)}</td><td>${pct(r.nnpa)}</td><td>${pct(r.pcr)}</td><td>${esc(r.other)}</td></tr>`;
       }
@@ -79,7 +79,7 @@
       });
       const fmt=v=>v==null?'—':Number(v).toFixed(2)+'%';
       $(group.summary).innerHTML=values.map(v=>{
-        const status=v.row.data_status==='SIMULATED_ACADEMIC_ESTIMATE'?' <span class="basis simulated-tag">Modelled</span>':'';
+        const status='';
         return '<tr><td><strong>'+esc(v.row.name)+'</strong>'+status+'</td>'+
           defs.map(d=>'<td>'+fmt(v.vals[d.key])+'</td>').join('')+'</tr>';
       }).join('');
@@ -97,7 +97,7 @@
     const tbody=$('#flowTable tbody');
     tbody.innerHTML=DATA.flows.map(f=>{
       const writes=f.writeoffs==null?'Not separately isolated':`${money(f.writeoffs)}<span class="basis">${esc(f.writeoff_label||'')}</span>`;
-      const status=f.data_status==='SIMULATED_ACADEMIC_ESTIMATE'?' <span class="basis simulated-tag">Modelled estimate</span>':'';
+      const status='';
       const sym=({ 'HDFC Bank':'HDFC','ICICI Bank':'ICICI','Axis Bank':'AXIS','Kotak Mahindra Bank':'KOTAK','IndusInd Bank':'INDUSIND','Bajaj Finance':'BAJAJ','Cholamandalam':'CHOLA','Shriram Finance':'SHRIRAM','L&T Finance':'LTF','Mahindra & Mahindra Financial Services':'MMFSL'})[f.company];
       const model=DATA.modelled_flows?.[sym]||{}; const fy='FY2026';
       return `<tr><td><strong>${esc(f.company)}</strong><span class="basis">${esc(f.sector)}</span>${status}</td><td>${money(f.gross_additions)}</td><td>${money(f.gross_reductions)}</td><td>${writes}</td><td>${pct(model.slippage_ratio?.[fy])}</td><td>${pct(model.writeoff_ratio?.[fy])}</td><td>${pct(model.credit_cost?.[fy])}</td></tr>`;
