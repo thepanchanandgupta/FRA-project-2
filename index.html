@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Credit Risk Intelligence | FRA Group Project 2</title>
-<meta name="description" content="Credit-risk analysis of HDFC Bank, ICICI Bank, Bajaj Finance and Cholamandalam, FY2017-FY2026: GNPA, NNPA, provisioning and capital.">
+<meta name="description" content="Credit-risk analysis of HDFC Bank, ICICI Bank, Bajaj Finance and Cholamandalam, FY2017-FY2026: GNPA, NNPA, PCR, risk events, share-price reactions and correlation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
     <div>
       <span class="badge">FRA Group Project 2</span>
       <h1>Credit Risk <span class="grad">Intelligence</span></h1>
-      <p class="lead">How well did four Indian lenders manage the risk that borrowers do not repay? HDFC Bank vs ICICI Bank, and Bajaj Finance vs Cholamandalam, over FY2017&ndash;FY2026, using annual-report asset-quality, provisioning and capital data.</p>
+      <p class="lead">How well did four Indian lenders manage the risk that borrowers do not repay? HDFC Bank vs ICICI Bank, and Bajaj Finance vs Cholamandalam, over FY2017&ndash;FY2026, using annual-report asset-quality data, risk-event analysis and daily share-price data.</p>
       <div class="pills">
         <span class="pill"><span class="dot" style="background:var(--blue)"></span>HDFC Bank &middot; ICICI Bank</span>
         <span class="pill"><span class="dot" style="background:var(--cyan)"></span>Bajaj Finance &middot; Cholamandalam</span>
@@ -60,18 +60,23 @@
     <div class="glass reveal"><h3>Objectives</h3><p style="margin-top:8px">Track asset quality, provisioning and capital for each lender; compare each with its closest peer; and separate lender-specific trends from shocks that hit everyone, such as COVID-19.</p></div>
     <div class="glass reveal"><h3>Method in brief</h3><p style="margin-top:8px">Annual data for FY2017&ndash;FY2026 extracted from annual reports. Banks are compared with banks and NBFCs with NBFCs. Missing data stays blank; nothing is estimated.</p></div>
   </div>
+  <div class="grid g2" id="rationale" style="margin-top:20px"></div>
   <div class="grid g4" id="lenders" style="margin-top:20px"></div>
+  <div class="sec-head reveal" style="margin-top:32px"><h3>The six required credit-risk measures</h3></div>
+  <div class="grid g3" id="metricDefs"></div>
   <div class="grid g4 reveal" id="kpis" style="margin-top:20px"></div>
 </div></section>
 
 <section id="banks"><div class="wrap">
   <div class="sec-head reveal"><span class="eyebrow">Section 2 &middot; Banks</span><h2>HDFC Bank vs ICICI Bank</h2><p>Both are large private-sector banks with comparable regulatory disclosures. HDFC's FY2024 onward includes the merger with HDFC Ltd.</p></div>
   <div id="peerBanks"></div>
+  <div id="sixBanks"></div>
 </div></section>
 
 <section id="nbfcs"><div class="wrap">
   <div class="sec-head reveal"><span class="eyebrow">Section 3 &middot; NBFCs</span><h2>Bajaj Finance vs Cholamandalam</h2><p>Both are large listed lending NBFCs, but Bajaj is consumer-led and Cholamandalam is vehicle-led and secured, so their risk profiles differ by design.</p></div>
   <div id="peerNbfcs"></div>
+  <div id="sixNbfcs"></div>
 </div></section>
 
 <section id="compare"><div class="wrap">
@@ -87,7 +92,22 @@
       <li><b>Funding and capital:</b> banks use deposits and Basel III (CRAR, CET1); NBFCs borrow from markets and banks and report CRAR under NBFC rules.</li>
       <li><b>Provision coverage:</b> HDFC's PCR excludes written-off assets; Chola's PCR in its investor deck is Stage-3 based; definitions differ.</li>
       <li><b>NPA vs Stage 3:</b> legacy RBI NPA and Ind AS Stage 3 are related but not interchangeable.</li></ul></div>
-  <div class="sec-head reveal" style="margin-top:36px"><h3>Risk trends and events</h3><p>Context from company disclosures. These are descriptions, not proof of cause.</p></div>
+  <div class="sec-head reveal" style="margin-top:36px"><span class="eyebrow">4a &middot; Systematic vs idiosyncratic risk</span><h3>Nine risk events</h3><p>Systematic = affects all lenders; idiosyncratic = specific to one lender. Open an event for the justification, mechanism, affected lenders and annual credit indicators before and after. These describe timing; they do not prove cause.</p></div>
+  <div class="ev-list" id="evCards"></div>
+  <div class="sec-head reveal" style="margin-top:36px"><span class="eyebrow">4b &middot; Share-price reaction</span><h3>Indexed prices around each event</h3><p>Daily adjusted prices, close before the event = 100. Dashed lines are the sector benchmarks.</p></div>
+  <div class="glass chart-card reveal in"><div class="chips" id="evChips" style="margin-bottom:10px"></div><h3 id="evTitle"></h3>
+    <div class="chart-box"><canvas id="evChart"></canvas></div>
+    <div class="tbl-wrap" style="margin-top:14px"><table id="evTable"></table></div><div id="evNote"></div><p class="src" id="evWin"></p></div>
+  <div class="grid g2" style="margin-top:20px">
+    <div class="glass chart-card reveal in"><h3>Banks: indexed price since 3 Oct 2016</h3><div class="sub">HDFC Bank, ICICI Bank and the Nifty Bank price index (base 100)</div><div class="chart-box"><canvas id="fullBanks"></canvas></div></div>
+    <div class="glass chart-card reveal in"><h3>NBFCs: indexed price since 3 Oct 2016</h3><div class="sub">Bajaj Finance, Cholamandalam and the Nifty Financial Services price index (base 100)</div><div class="chart-box"><canvas id="fullNbfc"></canvas></div></div></div>
+  <p class="src" id="pxMeta" style="margin-top:8px"></p>
+  <div class="sec-head reveal" style="margin-top:36px"><span class="eyebrow">4c &middot; Correlation analysis</span><h3>Do share prices move with credit-risk indicators?</h3><p>Method: Pearson and Spearman correlations of each stock's financial-year price return (Adj Close, last session on or before 31 March) with the change in a credit ratio over the same year (and the next year). Changes, not levels, are used so that trends do not create false correlation. Samples are 5 to 9 years, so only very strong relationships can be detected; shaded rows have p &lt; 0.05 and are not corrected for the many tests run. Correlation is not causation.</p></div>
+  <div class="grid g2">
+    <div class="glass chart-card reveal in"><h3 id="scT"></h3><div class="sub" id="scSub"></div><div class="chips" id="scS" style="margin:8px 0"></div><div class="chips" id="scM" style="margin:0 0 6px"></div><div class="chart-box"><canvas id="scChart"></canvas></div></div>
+    <div class="glass chart-card reveal in"><h3>Daily-return co-movement (systematic component)</h3><div class="sub">Pearson r of daily returns, 3 Oct 2016 to 30 Sep 2026</div><div class="tbl-wrap"><table id="cmTable"></table></div><h3 style="margin-top:16px">Contrast: price level vs GNPA level</h3><div class="sub">Shown to illustrate why levels are not used: both trend over time</div><div class="tbl-wrap"><table id="lvTable"></table></div></div></div>
+  <div class="glass chart-card reveal in" style="margin-top:20px"><h3>Annual price return vs change in credit indicator</h3><div class="sub">Change = this year minus last year, in percentage points. HDFC is also shown without FY2024 (merger year).</div><div class="tbl-wrap"><table id="anTable"></table></div></div>
+  <div class="sec-head reveal" style="margin-top:36px"><h3>Company disclosure notes</h3><p>Context from company disclosures. Descriptions, not proof of cause.</p></div>
   <div class="ev-list" id="evList"></div>
 </div></section>
 
@@ -101,9 +121,11 @@
   <div class="sec-head reveal"><span class="eyebrow">Assumptions and limitations</span><h2>What to keep in mind</h2></div>
   <div class="grid g2" id="limits"></div>
   <div class="ev-list" style="margin-top:20px">
+    <details class="glass ev" open><summary><span class="t">Data breaks and comparability (read before comparing years)</span></summary><div class="body" id="brk2"></div></details>
+    <details class="glass ev"><summary><span class="t">Claims from the earlier draft removed as unverified</span></summary><div class="body" id="removed"></div></details>
     <details class="glass ev"><summary><span class="t">Data checks: what was independently verified</span></summary><div class="body"><div class="tbl-wrap"><table id="checkTable"></table></div><p class="note warn" style="margin-top:12px" id="unres"></p></div></details>
     <details class="glass ev"><summary><span class="t">Comparability breaks and not-collected data</span></summary><div class="body" id="breaks"></div></details>
-    <details class="glass ev"><summary><span class="t">Source register</span></summary><div class="body"><div class="tbl-wrap"><table id="srcTable"></table></div></div></details>
+    <details class="glass ev"><summary><span class="t">Source register</span></summary><div class="body"><div class="tbl-wrap"><table id="srcTable"></table></div><div class="tbl-wrap" style="margin-top:14px"><table id="src2"></table></div></div></details>
     <details class="glass ev"><summary><span class="t">Full data grid, with source and page for every value</span></summary><div class="body"><div class="tbl-wrap"><table id="gridTable"></table></div><p class="src">Hover a value for its basis, source and page. c = calculated by us from reported scale values.</p></div></details>
   </div>
 </div></section>
@@ -135,10 +157,13 @@
   </div>
 </div></section>
 
-<footer>FRA Group Project 2 &middot; Credit Risk Intelligence &middot; Annual credit-risk data, FY2017&ndash;FY2026</footer>
+<footer>FRA Group Project 2 &middot; Credit Risk Intelligence &middot; Credit-risk data FY2017&ndash;FY2026 &middot; daily prices Oct 2016&ndash;Sep 2026</footer>
 <button id="toTop" aria-label="Back to top">&uarr;</button>
 
 <script src="js/data/credit.js"></script>
+<script src="js/data/market.js"></script>
+<script src="js/data/events.js"></script>
 <script src="js/app.js"></script>
+<script src="js/analysis-ui.js"></script>
 </body>
 </html>

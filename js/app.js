@@ -58,7 +58,7 @@ function intro() {
   const role = { HDFC: 'Bank', ICICI: 'Bank (peer)', BAJAJ: 'NBFC', CHOLA: 'NBFC (peer)' };
   $('#lenders').innerHTML = keys.map(k => `<div class="glass spot reveal" style="border-top:2px solid ${E[k].color}"><span class="tag ${k === 'HDFC' || k === 'BAJAJ' ? 'ok' : 'pend'}">${role[k]}</span><h3 style="margin-top:8px">${E[k].name}</h3><p class="src" style="margin:6px 0 0">${esc(E[k].type)}</p><p style="margin-top:10px;font-size:.88rem;color:var(--muted)">FY2026: GNPA <b style="color:var(--ink)">${fmt(cv(k, 'GNPA', 'FY2026'))}%</b> &middot; NNPA <b style="color:var(--ink)">${fmt(cv(k, 'NNPA', 'FY2026'))}%</b></p></div>`).join('');
   const rep = C.observations.filter(o => o.kind === 'reported').length, cal = C.observations.length - rep;
-  const k = [{ v: 4, l: 'Lenders', s: 'Two banks, two NBFCs' }, { v: 10, l: 'Financial years', s: 'FY2017 to FY2026' }, { v: rep, l: 'Reported data points', s: cal + ' more calculated (growth)' }, { v: 5, l: 'Metrics', s: 'GNPA, NNPA, PCR, growth, CRAR' }];
+  const k = [{ v: 4, l: 'Lenders', s: 'Two banks, two NBFCs' }, { v: 10, l: 'Financial years', s: 'FY2017 to FY2026' }, { v: rep, l: 'Reported data points', s: cal + ' more calculated (growth)' }, { v: 6, l: 'Required metrics', s: '3 with data; slippages, write-offs, credit cost unavailable' }];
   $('#kpis').innerHTML = k.map(x => `<div class="glass spot kpi"><div class="v" data-count="${x.v}">0</div><div class="l">${x.l}</div><div class="d">${x.s}</div></div>`).join('');
 }
 
@@ -125,7 +125,7 @@ function findings() {
     ['4. Shared shocks and one-off events shaped the trends', 'COVID-19 and the moratorium period lifted NPAs for NBFCs (Bajaj FY2021, Cholamandalam FY2022); ICICI\'s decline reflects clean-up of earlier corporate stress; HDFC\'s FY2024 balance sheet reflects its merger. Descriptions, not proof of cause.']
   ];
   $('#findBox').innerHTML = f.map(x => `<div class="glass reveal in"><h3>${x[0]}</h3><p style="margin-top:10px;color:var(--muted);font-size:.93rem">${x[1]}</p></div>`).join('');
-  $('#concl').innerHTML = `<h3>Conclusion</h3><p style="margin-top:10px">On the reported ratios, all four lenders ended FY2026 with healthy asset quality for their business models, and the evidence does not support naming one lender the winner. Within banks, HDFC is the steadier performer and ICICI the stronger recoverer with higher provision coverage. Within NBFCs, Bajaj shows lower reported NPAs than Cholamandalam, which serves a more secured, vehicle-led segment. A fuller verdict needs slippages and credit cost, which were not collected.</p>`;
+  $('#concl').innerHTML = `<h3>Conclusion</h3><p style="margin-top:10px">On the reported ratios, all four lenders ended FY2026 with healthy asset quality for their business models, and the evidence does not support naming one lender the winner. Within banks, HDFC is the steadier performer and ICICI the stronger recoverer with higher provision coverage. Within NBFCs, Bajaj shows lower reported NPAs than Cholamandalam, which serves a more secured, vehicle-led segment. </p>`;
   const lim = [
     ['Banks vs NBFCs', 'Advances and AUM, capital rules and PCR definitions differ, so only peers within a group are compared.'],
     ['Standalone vs consolidated', 'HDFC, ICICI and Cholamandalam are standalone; Bajaj asset-quality ratios are consolidated (its CRAR is standalone).'],

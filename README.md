@@ -19,3 +19,8 @@ Annual figures extracted by the team from annual reports (page references in the
 
 ## Deploy (GitHub Pages)
 Settings → Pages → Deploy from a branch → `main` / `(root)`. All paths are relative, so it works under `/FRA-project-2/`. The QR code is generated from the page's own URL.
+
+## Update: risk events, share-price reactions and correlations
+- `scripts/market_analysis.py` recomputes the event study and correlations from `data/cleaned/prices_cleaned.csv` and the credit data (writes `data/outputs/market_analysis.json`, `js/data/market.js`).
+- `js/data/events.js` holds event classifications, data breaks, removed claims and extra sources; `js/analysis-ui.js` renders the new sections.
+- Slippages, write-offs and credit cost are shown as unavailable (no verified series). Event URLs not retained are marked as such in the source register.
