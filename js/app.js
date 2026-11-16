@@ -29,7 +29,7 @@
     renderPeerTable('bankPeerTable',DATA.peer_banks,'bank');
     renderPeerTable('nbfcPeerTable',DATA.peer_nbfcs,'nbfc');
     renderPeerAnalytics();
-    renderFlows(); renderEvents(); renderCorrelations(); renderSources(); renderTeam();
+    if ($('#flowTable')) renderFlows(); renderEvents(); renderCorrelations(); renderSources(); renderTeam();
     $('#sourceCount').textContent = `${DATA.sources.length} references`;
   }
 
