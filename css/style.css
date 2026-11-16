@@ -35,3 +35,46 @@ body{font-size:17px}.topbar nav a{font-size:16px}.eyebrow{font-size:14px}.hero-l
   #bankPeerTable tbody td:first-child strong,
   #nbfcPeerTable tbody td:first-child strong{font-size:15px!important}
 }
+
+
+/* Section-specific typography reset: sections 04, 06 and 07 */
+#slippages .section-heading h2,
+#method .section-heading h2,
+#data-breaks .section-heading h2{
+  font-size:clamp(48px,4vw,51px)!important;
+  line-height:1.12!important;
+}
+#slippages .section-heading>p,
+#method .section-heading>p,
+#data-breaks .section-heading>p{
+  font-size:19px!important;
+  line-height:1.55!important;
+}
+#slippages .flow-intro b{font-size:17px!important}
+#slippages .flow-intro p{font-size:16px!important;line-height:1.6!important}
+#slippages .flow-key{font-size:14px!important}
+#slippages #flowTable thead th{font-size:15px!important;line-height:1.4}
+#slippages #flowTable tbody td{font-size:16px!important;line-height:1.5!important}
+#slippages #flowTable tbody td strong{font-size:16px!important;font-weight:700}
+#slippages #flowTable tbody td .basis{font-size:12px!important}
+#method .method-card h3{font-size:18px!important;line-height:1.35!important}
+#method .method-card p{font-size:17px!important;line-height:1.65!important}
+#method .method-card .method-letter,
+#method .method-card .step-letter{font-size:14px!important}
+#data-breaks .break-item b{font-size:15px!important;line-height:1.4!important}
+#data-breaks .break-item p{font-size:18px!important;line-height:1.6!important}
+@media(max-width:800px){
+  #slippages .section-heading h2,
+  #method .section-heading h2,
+  #data-breaks .section-heading h2{font-size:36px!important}
+  #slippages .section-heading>p,
+  #method .section-heading>p,
+  #data-breaks .section-heading>p{font-size:17px!important}
+  #slippages #flowTable thead th{font-size:13px!important}
+  #slippages #flowTable tbody td,
+  #slippages #flowTable tbody td strong{font-size:14px!important}
+  #method .method-card h3{font-size:17px!important}
+  #method .method-card p{font-size:16px!important}
+  #data-breaks .break-item b{font-size:14px!important}
+  #data-breaks .break-item p{font-size:16px!important}
+}
