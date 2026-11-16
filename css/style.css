@@ -81,3 +81,112 @@ body{font-size:17px}.topbar nav a{font-size:16px}.eyebrow{font-size:14px}.hero-l
 
 /* Peer comparison and risk-driver redesign */
 .peer-analytics{margin-top:26px}.peer-analytics .peer-heading{margin-top:22px}.peer-analytics table{min-width:760px}.peer-analytics th{font-size:11px;padding:13px 14px}.peer-analytics td{font-size:13px;padding:12px 14px}.peer-analytics tbody tr:nth-child(even) td{background:#fbfcfe}.peer-analytics .best-value{display:inline-block;background:#e5f4eb;color:#17683e;border-radius:6px;padding:4px 8px;font-weight:800}.peer-analytics .peer-table-note{font-size:12px;color:var(--muted);line-height:1.65;margin:10px 2px 0}.risk-driver-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0}.risk-driver-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow)}.risk-kind{font-size:10px;font-weight:800;letter-spacing:1px;color:#5278a8}.risk-driver-card h3{font-size:20px;line-height:1.3;margin:10px 0}.risk-driver-card p,.risk-driver-card li{font-size:14px;line-height:1.65;color:var(--muted)}.risk-driver-card ul{padding-left:20px;margin:12px 0}.risk-driver-card li{margin:7px 0}.risk-driver-card li b{color:var(--ink)}.risk-takeaway{border-top:1px solid var(--line);padding-top:12px;margin-top:14px!important;font-weight:600;color:var(--ink)!important}.risk-method-note{font-size:12px;line-height:1.6;color:var(--muted);margin:0 0 20px}@media(max-width:800px){.risk-driver-grid{grid-template-columns:1fr}.peer-analytics th{font-size:10px}.peer-analytics td{font-size:12px}}
+
+
+/* Compact layout audit — reduce unused vertical space and oversized panels */
+:root{--shadow:0 7px 22px rgba(22,42,72,.055);--radius:14px}
+html{scroll-padding-top:78px}
+.topbar{height:68px;gap:20px}
+.topbar nav{gap:17px}
+.hero{min-height:410px;padding:58px max(6vw,28px) 52px;gap:28px}
+.hero-visual{min-height:260px}
+.signal-main{padding:21px}
+.signal-orbit{width:270px;height:270px}
+.orbit-two{width:360px;height:360px}
+.section{padding-top:46px;padding-bottom:46px}
+.overview-strip{padding-top:20px;padding-bottom:20px;gap:12px}
+.stat-card{padding:15px 18px}
+.insight{min-height:0;padding:18px 20px}
+.insight h3{margin:10px 0 6px}
+.section-heading{margin-bottom:20px;gap:18px}
+.section-heading h2{font-size:clamp(30px,3vw,39px)!important}
+.section-heading>p{font-size:14px!important;line-height:1.5}
+.sector-section{padding-top:42px}
+.sector-layout{gap:13px;grid-template-columns:.78fr 1.22fr}
+.focus-card{min-height:0;padding:20px}
+.focus-card h3{margin:14px 0}
+.focus-card p{margin-top:14px;font-size:14px!important;line-height:1.5}
+.focus-metrics b{font-size:21px}
+.chart-panel,.mini-panel{padding:16px 18px;border-radius:14px}
+.panel-head h3,.peer-heading h3,.source-head h3{font-size:15px}
+.panel-head p,.peer-heading p{font-size:12px}
+.chart-wrap{height:250px;min-height:0;margin-top:10px}
+.chart-tall{height:310px;min-height:0}
+.chart-foot{margin-top:7px;gap:12px}
+.peer-heading{margin:20px 0 9px}
+.peer-analytics{margin-top:18px}
+.peer-analytics .peer-heading{margin:17px 0 8px}
+.table-wrap{border-radius:11px}
+th,td{padding:9px 11px}
+.peer-analytics th,.peer-analytics td{padding:9px 11px}
+.small-details{margin-top:8px}
+.slippage-section{padding-top:44px;padding-bottom:44px}
+.flow-intro{padding:14px 18px;margin-bottom:10px!important}
+.flow-cards{gap:10px;margin-top:10px!important}
+.flow-cards article{padding:14px}
+.market-chart-panel{padding:17px 19px}
+.market-bottom{gap:12px;margin-top:12px}
+.compact th,.compact td{padding:8px 9px}
+.method-section{padding-top:44px}
+.method-grid{gap:10px}
+.method-card{padding:15px 17px}
+.method-card h3{margin:9px 0 4px}
+.source-block{margin-top:17px}
+.source-list{gap:7px}
+.source-link{padding:9px 11px}
+.data-breaks-section .breaks-list{gap:10px;margin-top:12px}
+.data-breaks-section .break-item{padding:14px 16px}
+#data-breaks .break-item p{font-size:14px!important;line-height:1.5}
+#data-breaks .break-item b{font-size:13px!important}
+.risk-driver-grid{gap:12px;margin:17px 0}
+.risk-driver-card{padding:17px 19px}
+.risk-driver-card h3{font-size:17px;margin:7px 0}
+.risk-driver-card p,.risk-driver-card li{font-size:13px;line-height:1.55}
+.risk-driver-card ul{margin:8px 0}
+.risk-driver-card li{margin:5px 0}
+.risk-takeaway{padding-top:9px;margin-top:10px!important}
+.team-qr-layout{gap:28px}
+.qr-panel{padding:17px}
+.qr-panel img{width:min(100%,210px)}
+.team-list-vertical{gap:11px;font-size:17px}
+.footer{padding-top:15px;padding-bottom:15px}
+@media(max-width:1050px){
+ .topbar nav{gap:10px}
+ .topbar nav a{font-size:12px}
+ .hero{min-height:0}
+ .sector-layout{grid-template-columns:.9fr 1.1fr}
+}
+@media(max-width:800px){
+ .topbar{height:64px}
+ .hero{padding:48px 24px 40px;gap:16px}
+ .hero-visual{min-height:220px}
+ .section{padding:36px 22px}
+ .overview-strip{padding-top:16px;padding-bottom:16px}
+ .sector-layout{grid-template-columns:1fr}
+ .focus-card{min-height:0}
+ .chart-wrap{height:230px;min-height:0}
+ .chart-tall{height:270px;min-height:0}
+ .section-heading h2{font-size:30px!important}
+ .slippage-section{padding:36px 22px}
+ .market-bottom{grid-template-columns:1fr}
+ .method-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .data-breaks-section .breaks-list{grid-template-columns:1fr 1fr}
+ .risk-driver-grid{grid-template-columns:1fr}
+ .team-qr-layout{grid-template-columns:minmax(180px,.8fr) 1.2fr;gap:20px}
+ .team-list-vertical{font-size:16px}
+}
+@media(max-width:560px){
+ .hero{padding:40px 20px 34px}
+ .hero-meta{font-size:10px}
+ .section{padding:32px 17px}
+ .overview-strip{gap:8px}
+ .stat-card{padding:12px}
+ .sector-layout{gap:10px}
+ .chart-panel,.mini-panel{padding:14px}
+ .method-grid,.data-breaks-section .breaks-list{grid-template-columns:1fr}
+ .team-qr-layout{grid-template-columns:1fr}
+ .qr-panel img{width:190px}
+ .team-list-vertical{padding-left:22px}
+ .flow-intro{padding:13px 15px}
+ .footer{padding:15px 18px}
+}
