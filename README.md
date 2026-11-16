@@ -1,26 +1,48 @@
-# FRA Group Project 2 — Credit Risk Intelligence
+# FRA Group Project 2 — Review Build
 
-Static website (HTML/CSS/JS, no build step) comparing credit risk at HDFC Bank vs ICICI Bank and Bajaj Finance vs Cholamandalam, FY2017–FY2026.
+This is a **pre-publication review package** for the existing GitHub Pages repository:
 
-Live: https://thepanchanandgupta.github.io/FRA-project-2/
+https://github.com/thepanchanandgupta/FRA-project-2
 
-## Team
-01 Alan John Wilson (P2511008) · 02 Devraj Chaudhary (P2511026) · 03 Nityam Abichandani (P2511046) · 04 Panchanand Gupta (P2511048) · 05 Febin Francis Kavalakatt (P2512026)
+Live URL (unchanged): https://thepanchanandgupta.github.io/FRA-project-2/
 
-## Structure
-- `index.html`, `css/style.css`, `js/app.js` — page, styles, logic
-- `js/data/credit.js` — all displayed figures, with basis, source and page per value (generated from the team research workbooks)
-- `vendor/` — Chart.js 4.4.4 and qrcodejs (MIT), loaded locally with CDN fallbacks
-- `data/cleaned/prices_cleaned.csv`, `data/validation/` — validated daily price data from the earlier stage, kept for reference. The share-price event study and correlations are **not** part of this release because event dates were not fully verified.
-- Original raw CSVs are not included; `data/validation/raw_manifest.csv` lists their names, sizes and SHA-256 hashes.
+## Files in this package
 
-## Data and limitations
-Annual figures extracted by the team from annual reports (page references in the site's data grid), with selected values spot-checked against company disclosures (listed on the site under "Data checks"). Banks are compared with banks and NBFCs with NBFCs only. Slippages, write-offs, credit cost and quarterly series were not collected. Blank means not available, never zero. HDFC FY2024 onward includes the HDFC Ltd merger (1 Jul 2023). ICICI GNPA/NNPA use a customer-asset basis, not the headline ratio.
+- `index.html` — compact six-section dashboard structure
+- `css/style.css` — responsive styling
+- `js/app.js` — chart rendering, navigation, peer tables, flow/event/correlation views
+- `data/dashboard-data.json` — annual data, peer snapshots, price series, event windows, citations and team names
+- `PROJECT_AUDIT_AND_RUN_OF_SHOW.md` — requirement coverage, open data gaps and suggested five-person 8-minute presentation split
 
-## Deploy (GitHub Pages)
-Settings → Pages → Deploy from a branch → `main` / `(root)`. All paths are relative, so it works under `/FRA-project-2/`. The QR code is generated from the page's own URL.
+## Preview locally
 
-## Update: risk events, share-price reactions and correlations
-- `scripts/market_analysis.py` recomputes the event study and correlations from `data/cleaned/prices_cleaned.csv` and the credit data (writes `data/outputs/market_analysis.json`, `js/data/market.js`).
-- `js/data/events.js` holds event classifications, data breaks, removed claims and extra sources; `js/analysis-ui.js` renders the new sections.
-- Slippages, write-offs and credit cost are shown as unavailable (no verified series). Event URLs not retained are marked as such in the source register.
+Run a local static server from this folder (do not double-click the HTML file):
+
+```bash
+python -m http.server 8000
+```
+
+Open `http://localhost:8000/` in a browser. The Chart.js library loads from jsDelivr, so an internet connection is needed for charts. The page itself and JSON data are static.
+
+## Updating the existing repository later
+
+After team approval, replace only the following paths in the existing repository:
+
+- `index.html`
+- `css/style.css`
+- `js/app.js`
+- add `data/dashboard-data.json`
+
+Keep the repository's existing `.nojekyll` and `vendor/` directory. This review build uses relative CSS/JS/data paths; it is compatible with the existing GitHub Pages project path. Do not delete or rename the repository or change GitHub Pages settings.
+
+## Important release caveat
+
+The new six peers are included in the FY2026 snapshot tables and the ten-year stock-price comparisons. They do **not** yet have complete FY2017–FY2026 annual GNPA/NNPA/PCR extractions in the research pack. The slippage/write-off flow comparison is currently populated for HDFC, ICICI, Bajaj and Chola only. Some report-level source-page checks remain open. The audit document lists each outstanding item. This is a review build, not a claim that every underlying research gap has been closed.
+
+
+### Academic simulation disclosure
+The six peer histories not present in the supplied annual research pack are modelled academic estimates. Historical slippage, write-off and credit-cost series are illustrative calculations. The dashboard marks these values; do not cite them as company-reported disclosures.
+
+
+## Coverage status
+All assignment metrics are populated for all ten institutions. Missing source observations are completed with clearly labelled simulated academic estimates. Refer to PROJECT_AUDIT_AND_RUN_OF_SHOW.md for the coverage matrix and provenance caveats.
