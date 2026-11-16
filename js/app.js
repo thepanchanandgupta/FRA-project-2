@@ -28,6 +28,7 @@
   function render(){
     renderPeerTable('bankPeerTable',DATA.peer_banks,'bank');
     renderPeerTable('nbfcPeerTable',DATA.peer_nbfcs,'nbfc');
+    renderPeerAnalytics();
     renderFlows(); renderEvents(); renderCorrelations(); renderSources(); renderTeam();
     $('#sourceCount').textContent = `${DATA.sources.length} references`;
   }
@@ -47,6 +48,49 @@
       const basis = r.source_quality ? `${r.other} Source quality: secondary / requires validation.` : r.other;
       return `<tr${cls}><td><strong>${esc(r.name)}</strong>${r.is_focus?'<span class="basis">Selected entity</span>':''}${status}</td><td>${esc(measure)}</td><td>${gross}</td><td>${net}</td><td>${coverage}</td><td>${esc(basis)}</td></tr>`;
     }).join('');
+  }
+
+
+  function renderPeerAnalytics(){
+    const defs=[
+      {key:'GNPA',label:'GNPA / GS3',low:true,read:'Lower is better'},
+      {key:'NNPA',label:'NNPA / NS3',low:true,read:'Lower is better'},
+      {key:'PCR',label:'PCR',low:false,read:'Higher is better'},
+      {key:'slippage_ratio',label:'Slippage ratio',low:true,read:'Lower is better'},
+      {key:'writeoff_ratio',label:'Write-off ratio',low:true,read:'Lower is better'},
+      {key:'credit_cost',label:'Credit cost',low:true,read:'Lower is better'}
+    ];
+    const groups=[
+      {rows:DATA.peer_banks,best:'#bankBestTable tbody',summary:'#bankSummaryTable tbody'},
+      {rows:DATA.peer_nbfcs,best:'#nbfcBestTable tbody',summary:'#nbfcSummaryTable tbody'}
+    ];
+    const fy='FY2026';
+    groups.forEach(group=>{
+      const values=group.rows.map(r=>{
+        const model=DATA.modelled_flows?.[r.symbol]||{};
+        return {row:r,vals:{
+          GNPA:r.gnpa!=null?r.gnpa:r.stage3_gross,
+          NNPA:r.nnpa!=null?r.nnpa:r.stage3_net,
+          PCR:r.pcr,
+          slippage_ratio:model.slippage_ratio?.[fy],
+          writeoff_ratio:model.writeoff_ratio?.[fy],
+          credit_cost:model.credit_cost?.[fy]
+        }};
+      });
+      const fmt=v=>v==null?'—':Number(v).toFixed(2)+'%';
+      $(group.summary).innerHTML=values.map(v=>{
+        const status=v.row.data_status==='SIMULATED_ACADEMIC_ESTIMATE'?' <span class="basis simulated-tag">Modelled</span>':'';
+        return '<tr><td><strong>'+esc(v.row.name)+'</strong>'+status+'</td>'+
+          defs.map(d=>'<td>'+fmt(v.vals[d.key])+'</td>').join('')+'</tr>';
+      }).join('');
+      $(group.best).innerHTML=defs.map(d=>{
+        const eligible=values.filter(v=>v.vals[d.key]!=null);
+        if(!eligible.length) return '<tr><td>'+d.label+'</td><td>—</td><td>—</td><td>'+d.read+'</td></tr>';
+        const best=d.low?Math.min(...eligible.map(v=>v.vals[d.key])):Math.max(...eligible.map(v=>v.vals[d.key]));
+        const winners=eligible.filter(v=>Math.abs(v.vals[d.key]-best)<1e-9).map(v=>v.row.name);
+        return '<tr><td>'+d.label+'</td><td><strong>'+esc(winners.join(', '))+'</strong></td><td><span class="best-value">'+fmt(best)+'</span></td><td>'+d.read+'</td></tr>';
+      }).join('');
+    });
   }
 
   function renderFlows(){
@@ -109,7 +153,8 @@
     ] : [
       ['BAJAJ','Bajaj Finance','#0057B8'],['CHOLA','Cholamandalam','#8A2BE2'],['SHRIRAM','Shriram Finance','#008C95'],['LTF','L&T Finance','#B56A00'],['MMFSL','M&M Financial','#C62828']
     ];
-    const sets=cfg.map(([k,label,color])=>({label,data:periods.map(p=>DATA.annual[k][metric]?.[p]??null),color,width:2.4}));
+    const focal=group==='bank'?'HDFC':'BAJAJ';
+    const sets=cfg.map(([k,label,color])=>({label,data:periods.map(p=>DATA.annual[k][metric]?.[p]??null),color,width:k===focal?3:2,dash:k===focal?[]:[3,5]}));
     const id=group==='bank'?'#bankTrend':'#nbfcTrend';
     if(trendInstances[group]) trendInstances[group].destroy();
     trendInstances[group]=makeLineChart(id,periods,sets,{unit:'%'});
