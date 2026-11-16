@@ -28,7 +28,7 @@ const DEFS = [
 function six(host, a, b, grp) {
   const rows = DEFS.map(([k, n, d]) => {
     const av = ['GNPA', 'NNPA', 'PCR'].includes(k);
-    const cell = x => av ? `<div><b style="color:${E[x].color}">${E[x].name}:</b> ${trend(x, k)}</div>` : `<div><b style="color:${E[x].color}">${E[x].name}:</b> <span class="na">unavailable</span></div>`;
+    const cell = x => av ? `<div><b style="color:${E[x].color}">${E[x].name}:</b> ${trend(x, k)}</div>` : `<div><b style="color:${E[x].color}">${E[x].name}:</b> <span class="na">Verified data unavailable</span></div>`;
     return `<tr><td style="white-space:normal;min-width:130px"><b>${n}</b></td><td style="white-space:normal;min-width:220px">${d}</td><td style="white-space:normal;min-width:300px">${cell(a)}${cell(b)}</td><td style="white-space:normal;min-width:180px">${av ? 'Team extraction from annual reports; page for every value in the data grid (Method).' : 'No page-referenced series in the research pack.'}</td></tr>`;
   }).join('');
   let extra;
@@ -164,6 +164,45 @@ function intro2() {
   $('#metricDefs').innerHTML = DEFS.map(d => `<div class="glass reveal in"><h3 style="font-size:1rem">${d[1]}</h3><p style="margin-top:6px;color:var(--muted);font-size:.86rem">${d[2]}</p><span class="tag ${['GNPA', 'NNPA', 'PCR'].includes(d[0]) ? 'ok' : 'pend'}" style="margin-top:8px">${['GNPA', 'NNPA', 'PCR'].includes(d[0]) ? 'data available' : 'unavailable'}</span></div>`).join('');
 }
 
-try { intro2(); six('sixBanks', 'HDFC', 'ICICI', 'bank'); six('sixNbfcs', 'BAJAJ', 'CHOLA', 'nbfc'); events(); pricePanel(); fullCharts(); corrTables(); scatter(); findings2(); method(); }
+
+/* ---------- ILLUSTRATIVE (hypothetical) charts: methodology only, never used in findings ---------- */
+const FY5 = ['FY2022', 'FY2023', 'FY2024', 'FY2025', 'FY2026'];
+const ILL = {
+  SLIP: { HDFC: [1.1, 1.0, 1.2, 1.3, 1.2], ICICI: [1.6, 1.3, 1.2, 1.1, 1.1], BAJAJ: [2.4, 1.8, 1.9, 2.1, 2.3], CHOLA: [3.9, 3.0, 2.8, 3.4, 3.6] },
+  WO: { HDFC: [9000, 10500, 11500, 13000, 14500], ICICI: [3800, 4200, 4500, 4800, 5000], BAJAJ: [1400, 1100, 1500, 2300, 2900], CHOLA: [900, 800, 950, 1300, 1700] },
+  CC: { HDFC: [0.9, 0.7, 0.8, 0.9, 1.0], ICICI: [0.7, 0.5, 0.4, 0.5, 0.6], BAJAJ: [3.0, 1.6, 1.5, 1.8, 2.1], CHOLA: [1.5, 1.1, 1.0, 1.3, 1.5] }
+};
+function illus(host, a, b, grp) {
+  const den = grp === 'bank' ? 'advances' : 'AUM', id = 'ill-' + host, st = { m: 'SLIP' };
+  const INFO = {
+    SLIP: { t: 'Slippages', u: '% of opening ' + den, def: `Slippage ratio = fresh slippages during the period &divide; opening standard ${den}.`, ex: `Fresh slippages Rs 1,200 crore &divide; opening standard ${den} Rs 100,000 crore = <b>1.20%</b>.` },
+    WO: { t: 'Write-offs', u: 'Rs crore (hypothetical amounts)', def: 'Write-offs = amount of loans written off during the period. It is an amount in Rs crore, not a ratio.', ex: 'Opening GNPA 5,000 + fresh slippages 1,200 &minus; recoveries and upgrades 700 &minus; write-offs 900 = closing GNPA 4,600 (Rs crore). Write-offs for the period = <b>Rs 900 crore</b>.' },
+    CC: { t: 'Credit cost', u: '% of average ' + den, def: `Credit cost = credit impairment / provisions charged to the P&amp;L during the period &divide; average ${den} ((opening + closing) &divide; 2).`, ex: `Provisions charged Rs 800 crore &divide; average ${den} ((95,000 + 105,000) &divide; 2 = 100,000) = <b>0.80%</b>.` }
+  };
+  const el = $('#' + host);
+  el.insertAdjacentHTML('beforeend', `<div class="glass chart-card reveal in" style="margin-top:20px;border:1px dashed var(--amber,#fbbf24)"><span class="tag pend">Illustrative example &mdash; not actual company data</span><h3 style="margin-top:8px">How slippages, write-offs and credit cost work (hypothetical values)</h3><p class="note warn" style="margin-top:8px">Dummy numbers for ${E[a].name} and ${E[b].name}, FY2022&ndash;FY2026, to explain the methodology. They are not reported figures and are excluded from every trend, event study, correlation and conclusion on this site. Verified data for these three measures is unavailable (see table above).</p><div class="chips" id="${id}-m" style="margin:10px 0"></div><div class="chart-box"><canvas id="${id}-c"></canvas></div><p class="src" id="${id}-d"></p><div class="note" id="${id}-x" style="margin-top:10px"></div></div>`);
+  const draw = () => {
+    const i = INFO[st.m], bar = st.m === 'WO';
+    $('#' + id + '-m').innerHTML = Object.keys(INFO).map(k => `<span class="chip ${k === st.m ? 'on' : ''}" data-m="${k}">${INFO[k].t}</span>`).join('');
+    mk(id + '-c', { type: bar ? 'bar' : 'line', data: { labels: FY5, datasets: [a, b].map(k => ({ label: E[k].name + ' (hypothetical)', data: ILL[st.m][k], borderColor: COL[k], backgroundColor: COL[k], borderWidth: 2.2, pointRadius: 4, tension: .25, borderRadius: 5 })) }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { beginAtZero: true, title: { display: true, text: i.t + ' (' + i.u + ') - ILLUSTRATIVE' } }, x: { grid: { display: false } } }, plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y}${bar ? ' Rs crore' : '%'}` } } } } });
+    $('#' + id + '-d').innerHTML = '<b>Definition:</b> ' + i.def;
+    $('#' + id + '-x').innerHTML = '<b>Worked example (hypothetical inputs, not a company\'s reported figures):</b><br>' + i.ex;
+  };
+  $('#' + id + '-m').onclick = e => { const c = e.target.closest('.chip'); if (!c) return; st.m = c.dataset.m; draw(); };
+  draw();
+}
+function narrative() {
+  const h = $('#narr'); if (!h) return;
+  const li = x => `<li>${x}</li>`;
+  h.innerHTML = `<h3>How to read this dashboard</h3><ul style="margin:10px 0 0 18px;color:var(--muted);display:grid;gap:8px;font-size:.92rem">${[
+    '<b>Six metrics:</b> GNPA, NNPA and PCR show the stock of bad loans and the cushion against them; slippages show new bad loans, write-offs the loans removed, and credit cost the P&amp;L charge. The first three are verified data. The last three are unavailable as verified series.',
+    '<b>Banks and NBFCs are separate:</b> they report advances vs AUM, follow different capital rules and define coverage differently, so each focal lender is compared only with its own peer.',
+    '<b>The nine events:</b> shocks that hit everyone (COVID-19, funding stress, rate and risk-weight changes) moved every stock and hit NBFCs hardest; lender-specific regulatory or governance news produced short-lived reactions without a visible change in annual NPAs.',
+    '<b>What the event study and correlations can show:</b> the size and timing of price moves and whether co-movement exists. <b>What they cannot show:</b> cause. Annual credit data gives only 5 to 9 points per lender, so even a strong correlation would not prove that credit quality moves prices.',
+    '<b>Data breaks:</b> HDFC Bank FY2024 onward includes the HDFC Ltd merger (1 Jul 2023), and ratios also differ by denominator, consolidation, IGAAP/Ind AS and the COVID moratorium, so years are not always like-for-like.',
+    '<b>Verified vs illustrative:</b> every empirical finding uses verified data only. The dashed "Illustrative example" charts use dummy values to explain methodology and are excluded from all findings.'].map(li).join('')}</ul>`;
+}
+
+try { intro2(); six('sixBanks', 'HDFC', 'ICICI', 'bank'); six('sixNbfcs', 'BAJAJ', 'CHOLA', 'nbfc'); illus('sixBanks', 'HDFC', 'ICICI', 'bank'); illus('sixNbfcs', 'BAJAJ', 'CHOLA', 'nbfc'); narrative(); events(); pricePanel(); fullCharts(); corrTables(); scatter(); findings2(); method(); }
 catch (e) { console.error(e); }
 })();
