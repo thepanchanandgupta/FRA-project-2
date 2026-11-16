@@ -2,11 +2,11 @@
   'use strict';
   const $ = (s, root=document) => root.querySelector(s);
   const $$ = (s, root=document) => [...root.querySelectorAll(s)];
-  const money = v => v == null ? 'Not separately disclosed' : `₹${Number(v).toLocaleString('en-IN',{maximumFractionDigits:2})} cr`;
+  const money = v => v == null ? '—' : `₹${Number(v).toLocaleString('en-IN',{maximumFractionDigits:2})} cr`;
   const pct = v => v == null ? '—' : `${Number(v).toFixed(2)}%`;
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const fmtCorr = v => v == null ? 'n/a' : `${v >= 0 ? '+' : ''}${v.toFixed(2)}`;
-  const COLORS = {blue:'#3977e8',violet:'#8a63d2',cyan:'#16a6c5',teal:'#1b9c8a',red:'#d85454',amber:'#cf9233',grey:'#9aa8ba'};
+  const COLORS = {blue:'#0057B8',violet:'#8A2BE2',cyan:'#008C95',teal:'#16803C',red:'#C62828',amber:'#B56A00',grey:'#586579'};
   let DATA = null;
 
   async function boot(){
@@ -56,7 +56,7 @@
       const status=f.data_status==='SIMULATED_ACADEMIC_ESTIMATE'?' <span class="basis simulated-tag">Modelled estimate</span>':'';
       const sym=({ 'HDFC Bank':'HDFC','ICICI Bank':'ICICI','Axis Bank':'AXIS','Kotak Mahindra Bank':'KOTAK','IndusInd Bank':'INDUSIND','Bajaj Finance':'BAJAJ','Cholamandalam':'CHOLA','Shriram Finance':'SHRIRAM','L&T Finance':'LTF','Mahindra & Mahindra Financial Services':'MMFSL'})[f.company];
       const model=DATA.modelled_flows?.[sym]||{}; const fy='FY2026';
-      return `<tr><td><strong>${esc(f.company)}</strong><span class="basis">${esc(f.sector)}</span>${status}</td><td>${money(f.gross_additions)}</td><td>${money(f.gross_reductions)}</td><td>${writes}</td><td>${pct(model.slippage_ratio?.[fy])}</td><td>${pct(model.writeoff_ratio?.[fy])}</td><td>${pct(model.credit_cost?.[fy])}</td><td>${esc(f.notes)}</td></tr>`;
+      return `<tr><td><strong>${esc(f.company)}</strong><span class="basis">${esc(f.sector)}</span>${status}</td><td>${money(f.gross_additions)}</td><td>${money(f.gross_reductions)}</td><td>${writes}</td><td>${pct(model.slippage_ratio?.[fy])}</td><td>${pct(model.writeoff_ratio?.[fy])}</td><td>${pct(model.credit_cost?.[fy])}</td></tr>`;
     }).join('');
   }
 
@@ -78,14 +78,14 @@
     $('#sourceList').innerHTML=DATA.sources.map(s=>`<a class="source-link" href="${esc(s.url||'#')}" ${s.url?'target="_blank" rel="noopener noreferrer"':''}><div><b>${esc(s.label)}</b><small>${esc(s.note)}</small></div><span>↗</span></a>`).join('');
   }
   function renderTeam(){
-    $('#teamList').innerHTML=DATA.team.map(n=>`<span class="team-chip">${esc(n)}</span>`).join('');
+    $('#teamList').innerHTML=[...DATA.team].sort((a,b)=>a.localeCompare(b)).map(n=>`<li>${esc(n)}</li>`).join('');
   }
 
   function makeLineChart(id, labels, sets, extra={}){
     if(!window.Chart) return null;
     return new Chart($(id),{
       type:'line',data:{labels,datasets:sets.map(s=>({label:s.label,data:s.data,borderColor:s.color,backgroundColor:s.color,pointRadius:0,pointHoverRadius:4,borderWidth:s.width||2,tension:.22,spanGaps:false,borderDash:s.dash||[]}))},
-      options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#14243b',padding:10,titleFont:{size:10},bodyFont:{size:10}}},scales:{x:{grid:{display:false},ticks:{maxTicksLimit:9,color:'#8a97a9',font:{size:9}}},y:{grid:{color:'#edf1f5'},ticks:{color:'#8a97a9',font:{size:9},callback:v=>`${v}${extra.unit||''}`},title:{display:!!extra.yTitle,text:extra.yTitle,color:'#8996a7',font:{size:9}}}},...extra.options}
+      options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:true,position:'bottom',labels:{color:'#26364b',font:{size:12},usePointStyle:true,boxWidth:10,padding:16}},tooltip:{backgroundColor:'#14243b',padding:10,titleFont:{size:12},bodyFont:{size:12}}},scales:{x:{grid:{display:false},ticks:{maxTicksLimit:9,color:'#8a97a9',font:{size:11}}},y:{grid:{color:'#edf1f5'},ticks:{color:'#8a97a9',font:{size:9},callback:v=>`${v}${extra.unit||''}`},title:{display:!!extra.yTitle,text:extra.yTitle,color:'#8996a7',font:{size:9}}}},...extra.options}
     });
   }
 
@@ -105,9 +105,9 @@
   function trendChart(group,metric){
     const periods=Array.from({length:10},(_,i)=>`FY${2017+i}`);
     const cfg=group==='bank' ? [
-      ['HDFC','HDFC Bank',COLORS.blue],['ICICI','ICICI Bank',COLORS.violet],['AXIS','Axis Bank','#25a58b'],['KOTAK','Kotak Mahindra','#df9853'],['INDUSIND','IndusInd Bank','#6b83a8']
+      ['HDFC','HDFC Bank','#0057B8'],['ICICI','ICICI Bank','#8A2BE2'],['AXIS','Axis Bank','#008C95'],['KOTAK','Kotak Mahindra','#B56A00'],['INDUSIND','IndusInd Bank','#C62828']
     ] : [
-      ['BAJAJ','Bajaj Finance',COLORS.cyan],['CHOLA','Cholamandalam',COLORS.teal],['SHRIRAM','Shriram Finance',COLORS.violet],['LTF','L&T Finance','#d39448'],['MMFSL','M&M Financial','#6586b9']
+      ['BAJAJ','Bajaj Finance','#0057B8'],['CHOLA','Cholamandalam','#8A2BE2'],['SHRIRAM','Shriram Finance','#008C95'],['LTF','L&T Finance','#B56A00'],['MMFSL','M&M Financial','#C62828']
     ];
     const sets=cfg.map(([k,label,color])=>({label,data:periods.map(p=>DATA.annual[k][metric]?.[p]??null),color,width:2.4}));
     const id=group==='bank'?'#bankTrend':'#nbfcTrend';
@@ -117,8 +117,8 @@
 
   let priceChartInstance=null;
   const groups={
-    bank:[['HDFC','HDFC Bank',COLORS.blue],['ICICI','ICICI Bank',COLORS.violet],['AXIS','Axis Bank','#25a58b'],['KOTAK','Kotak Mahindra','#df9853'],['INDUSIND','IndusInd Bank','#6b83a8'],['NIFTYBANK','Nifty Bank',COLORS.grey,true]],
-    nbfc:[['BAJAJ','Bajaj Finance',COLORS.cyan],['CHOLA','Cholamandalam',COLORS.teal],['SHRIRAM','Shriram Finance',COLORS.violet],['LTF','L&T Finance','#d39448'],['MMFSL','M&M Financial','#6586b9'],['NIFTYFIN','Nifty Financial Services',COLORS.grey,true]]
+    bank:[['HDFC','HDFC Bank','#0057B8'],['ICICI','ICICI Bank','#8A2BE2'],['AXIS','Axis Bank','#008C95'],['KOTAK','Kotak Mahindra','#B56A00'],['INDUSIND','IndusInd Bank','#C62828'],['NIFTYBANK','Nifty Bank','#586579',true]],
+    nbfc:[['BAJAJ','Bajaj Finance','#0057B8'],['CHOLA','Cholamandalam','#8A2BE2'],['SHRIRAM','Shriram Finance','#008C95'],['LTF','L&T Finance','#B56A00'],['MMFSL','M&M Financial','#C62828'],['NIFTYFIN','Nifty Financial Services','#586579',true]]
   };
   function priceChart(sector){
     const g=groups[sector];
